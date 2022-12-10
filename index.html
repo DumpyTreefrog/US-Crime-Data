@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 1619px;
+            height: 827px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Safe_Zone_1.js"></script>
+        <script src="data/Crime_Occurence_2.js"></script>
+        <script src="data/Extreme_Cases_3.js"></script>
+        <script src="data/Very_Extreme_Crime_Cases_4.js"></script>
+        <script src="data/US_Law_Enforcement_Agenciy_5.js"></script>
+        <script src="data/US_Crime_1982_2021_6.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[25.937772778472123,-127.45695195013539],[50.19938680045521,-79.90418846704833]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleMaps_0');
+        map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
+        var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleMaps_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+        });
+        layer_GoogleMaps_0;
+        map.addLayer(layer_GoogleMaps_0);
+        function pop_Safe_Zone_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATEFP'] !== null ? autolinker.link(feature.properties['STATEFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYFP'] !== null ? autolinker.link(feature.properties['COUNTYFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYNS'] !== null ? autolinker.link(feature.properties['COUNTYNS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AFFGEOID'] !== null ? autolinker.link(feature.properties['AFFGEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(feature.properties['GEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LSAD'] !== null ? autolinker.link(feature.properties['LSAD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALAND'] !== null ? autolinker.link(feature.properties['ALAND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AWATER'] !== null ? autolinker.link(feature.properties['AWATER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shoot_Case'] !== null ? autolinker.link(feature.properties['Shoot_Case'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Safe_Zone_1_0() {
+            return {
+                pane: 'pane_Safe_Zone_1',
+                opacity: 1,
+                color: 'rgba(77,175,74,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Safe_Zone_1');
+        map.getPane('pane_Safe_Zone_1').style.zIndex = 401;
+        map.getPane('pane_Safe_Zone_1').style['mix-blend-mode'] = 'normal';
+        var layer_Safe_Zone_1 = new L.geoJson(json_Safe_Zone_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Safe_Zone_1',
+            layerName: 'layer_Safe_Zone_1',
+            pane: 'pane_Safe_Zone_1',
+            onEachFeature: pop_Safe_Zone_1,
+            style: style_Safe_Zone_1_0,
+        });
+        bounds_group.addLayer(layer_Safe_Zone_1);
+        map.addLayer(layer_Safe_Zone_1);
+        function pop_Crime_Occurence_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATEFP'] !== null ? autolinker.link(feature.properties['STATEFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYFP'] !== null ? autolinker.link(feature.properties['COUNTYFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYNS'] !== null ? autolinker.link(feature.properties['COUNTYNS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AFFGEOID'] !== null ? autolinker.link(feature.properties['AFFGEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(feature.properties['GEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LSAD'] !== null ? autolinker.link(feature.properties['LSAD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALAND'] !== null ? autolinker.link(feature.properties['ALAND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AWATER'] !== null ? autolinker.link(feature.properties['AWATER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shoot_Case'] !== null ? autolinker.link(feature.properties['Shoot_Case'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_Crime_Occurence_2_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#000000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_Crime_Occurence_2_0.addTo(map);
+        function style_Crime_Occurence_2_0() {
+            return {
+                pane: 'pane_Crime_Occurence_2',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_Crime_Occurence_2_0,
+                interactive: true,
+            }
+        }
+        function style_Crime_Occurence_2_1() {
+            return {
+                pane: 'pane_Crime_Occurence_2',
+                opacity: 1,
+                color: 'rgba(0,0,212,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Crime_Occurence_2');
+        map.getPane('pane_Crime_Occurence_2').style.zIndex = 402;
+        map.getPane('pane_Crime_Occurence_2').style['mix-blend-mode'] = 'normal';
+        var layer_Crime_Occurence_2 = new L.geoJson.multiStyle(json_Crime_Occurence_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Crime_Occurence_2',
+            layerName: 'layer_Crime_Occurence_2',
+            pane: 'pane_Crime_Occurence_2',
+            onEachFeature: pop_Crime_Occurence_2,
+            styles: [style_Crime_Occurence_2_0,style_Crime_Occurence_2_1,]
+        });
+        bounds_group.addLayer(layer_Crime_Occurence_2);
+        map.addLayer(layer_Crime_Occurence_2);
+        function pop_Extreme_Cases_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATEFP'] !== null ? autolinker.link(feature.properties['STATEFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYFP'] !== null ? autolinker.link(feature.properties['COUNTYFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYNS'] !== null ? autolinker.link(feature.properties['COUNTYNS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AFFGEOID'] !== null ? autolinker.link(feature.properties['AFFGEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(feature.properties['GEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LSAD'] !== null ? autolinker.link(feature.properties['LSAD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALAND'] !== null ? autolinker.link(feature.properties['ALAND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AWATER'] !== null ? autolinker.link(feature.properties['AWATER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shoot_Case'] !== null ? autolinker.link(feature.properties['Shoot_Case'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_Extreme_Cases_3_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#e700e7',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_Extreme_Cases_3_0.addTo(map);
+        function style_Extreme_Cases_3_0() {
+            return {
+                pane: 'pane_Extreme_Cases_3',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_Extreme_Cases_3_0,
+                interactive: true,
+            }
+        }
+        function style_Extreme_Cases_3_1() {
+            return {
+                pane: 'pane_Extreme_Cases_3',
+                opacity: 1,
+                color: 'rgba(231,0,231,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Extreme_Cases_3');
+        map.getPane('pane_Extreme_Cases_3').style.zIndex = 403;
+        map.getPane('pane_Extreme_Cases_3').style['mix-blend-mode'] = 'normal';
+        var layer_Extreme_Cases_3 = new L.geoJson.multiStyle(json_Extreme_Cases_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Extreme_Cases_3',
+            layerName: 'layer_Extreme_Cases_3',
+            pane: 'pane_Extreme_Cases_3',
+            onEachFeature: pop_Extreme_Cases_3,
+            styles: [style_Extreme_Cases_3_0,style_Extreme_Cases_3_1,]
+        });
+        bounds_group.addLayer(layer_Extreme_Cases_3);
+        map.addLayer(layer_Extreme_Cases_3);
+        function pop_Very_Extreme_Crime_Cases_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATEFP'] !== null ? autolinker.link(feature.properties['STATEFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYFP'] !== null ? autolinker.link(feature.properties['COUNTYFP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYNS'] !== null ? autolinker.link(feature.properties['COUNTYNS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AFFGEOID'] !== null ? autolinker.link(feature.properties['AFFGEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(feature.properties['GEOID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LSAD'] !== null ? autolinker.link(feature.properties['LSAD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALAND'] !== null ? autolinker.link(feature.properties['ALAND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AWATER'] !== null ? autolinker.link(feature.properties['AWATER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shoot_Case'] !== null ? autolinker.link(feature.properties['Shoot_Case'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_Very_Extreme_Crime_Cases_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#f70000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_Very_Extreme_Crime_Cases_4_0.addTo(map);
+        function style_Very_Extreme_Crime_Cases_4_0() {
+            return {
+                pane: 'pane_Very_Extreme_Crime_Cases_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_Very_Extreme_Crime_Cases_4_0,
+                interactive: true,
+            }
+        }
+        var pattern_Very_Extreme_Crime_Cases_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#f70000',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_Very_Extreme_Crime_Cases_4_1.addTo(map);
+        function style_Very_Extreme_Crime_Cases_4_1() {
+            return {
+                pane: 'pane_Very_Extreme_Crime_Cases_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_Very_Extreme_Crime_Cases_4_1,
+                interactive: true,
+            }
+        }
+        function style_Very_Extreme_Crime_Cases_4_2() {
+            return {
+                pane: 'pane_Very_Extreme_Crime_Cases_4',
+                opacity: 1,
+                color: 'rgba(247,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Very_Extreme_Crime_Cases_4');
+        map.getPane('pane_Very_Extreme_Crime_Cases_4').style.zIndex = 404;
+        map.getPane('pane_Very_Extreme_Crime_Cases_4').style['mix-blend-mode'] = 'normal';
+        var layer_Very_Extreme_Crime_Cases_4 = new L.geoJson.multiStyle(json_Very_Extreme_Crime_Cases_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Very_Extreme_Crime_Cases_4',
+            layerName: 'layer_Very_Extreme_Crime_Cases_4',
+            pane: 'pane_Very_Extreme_Crime_Cases_4',
+            onEachFeature: pop_Very_Extreme_Crime_Cases_4,
+            styles: [style_Very_Extreme_Crime_Cases_4_0,style_Very_Extreme_Crime_Cases_4_1,style_Very_Extreme_Crime_Cases_4_2,]
+        });
+        bounds_group.addLayer(layer_Very_Extreme_Crime_Cases_4);
+        map.addLayer(layer_Very_Extreme_Crime_Cases_4);
+        function pop_US_Law_Enforcement_Agenciy_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(feature.properties['NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADDRESS'] !== null ? autolinker.link(feature.properties['ADDRESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CITY'] !== null ? autolinker.link(feature.properties['CITY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATE'] !== null ? autolinker.link(feature.properties['STATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ZIP'] !== null ? autolinker.link(feature.properties['ZIP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ZIP4'] !== null ? autolinker.link(feature.properties['ZIP4'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TELEPHONE'] !== null ? autolinker.link(feature.properties['TELEPHONE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TYPE'] !== null ? autolinker.link(feature.properties['TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATUS'] !== null ? autolinker.link(feature.properties['STATUS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['POPULATION'] !== null ? autolinker.link(feature.properties['POPULATION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTY'] !== null ? autolinker.link(feature.properties['COUNTY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYFIPS'] !== null ? autolinker.link(feature.properties['COUNTYFIPS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTRY'] !== null ? autolinker.link(feature.properties['COUNTRY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LATITUDE'] !== null ? autolinker.link(feature.properties['LATITUDE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LONGITUDE'] !== null ? autolinker.link(feature.properties['LONGITUDE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAICS_CODE'] !== null ? autolinker.link(feature.properties['NAICS_CODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAICS_DESC'] !== null ? autolinker.link(feature.properties['NAICS_DESC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SOURCE'] !== null ? autolinker.link(feature.properties['SOURCE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SOURCEDATE'] !== null ? autolinker.link(feature.properties['SOURCEDATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['VAL_METHOD'] !== null ? autolinker.link(feature.properties['VAL_METHOD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['VAL_DATE'] !== null ? autolinker.link(feature.properties['VAL_DATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WEBSITE'] !== null ? autolinker.link(feature.properties['WEBSITE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CI_ID'] !== null ? autolinker.link(feature.properties['CI_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CSLLEA08ID'] !== null ? autolinker.link(feature.properties['CSLLEA08ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUBTYPE1'] !== null ? autolinker.link(feature.properties['SUBTYPE1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUBTYPE2'] !== null ? autolinker.link(feature.properties['SUBTYPE2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TRIBAL'] !== null ? autolinker.link(feature.properties['TRIBAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUMPRE'] !== null ? autolinker.link(feature.properties['NUMPRE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUMFIXSUB'] !== null ? autolinker.link(feature.properties['NUMFIXSUB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUMMOBILE'] !== null ? autolinker.link(feature.properties['NUMMOBILE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FTSWORN'] !== null ? autolinker.link(feature.properties['FTSWORN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FTCIV'] !== null ? autolinker.link(feature.properties['FTCIV'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PTSWORN'] !== null ? autolinker.link(feature.properties['PTSWORN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PTCIV'] !== null ? autolinker.link(feature.properties['PTCIV'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_US_Law_Enforcement_Agenciy_5_0() {
+            return {
+                pane: 'pane_US_Law_Enforcement_Agenciy_5',
+                radius: 2.4,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(54,99,225,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_US_Law_Enforcement_Agenciy_5');
+        map.getPane('pane_US_Law_Enforcement_Agenciy_5').style.zIndex = 405;
+        map.getPane('pane_US_Law_Enforcement_Agenciy_5').style['mix-blend-mode'] = 'normal';
+        var layer_US_Law_Enforcement_Agenciy_5 = new L.geoJson(json_US_Law_Enforcement_Agenciy_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_US_Law_Enforcement_Agenciy_5',
+            layerName: 'layer_US_Law_Enforcement_Agenciy_5',
+            pane: 'pane_US_Law_Enforcement_Agenciy_5',
+            onEachFeature: pop_US_Law_Enforcement_Agenciy_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_US_Law_Enforcement_Agenciy_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_US_Law_Enforcement_Agenciy_5);
+        map.addLayer(layer_US_Law_Enforcement_Agenciy_5);
+        function pop_US_Crime_1982_2021_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['case'] !== null ? autolinker.link(feature.properties['case'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['location'] !== null ? autolinker.link(feature.properties['location'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date'] !== null ? autolinker.link(feature.properties['date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['year'] !== null ? autolinker.link(feature.properties['year'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['race'] !== null ? autolinker.link(feature.properties['race'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['gender'] !== null ? autolinker.link(feature.properties['gender'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fatalities'] !== null ? autolinker.link(feature.properties['fatalities'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['injured'] !== null ? autolinker.link(feature.properties['injured'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['total_vict'] !== null ? autolinker.link(feature.properties['total_vict'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['location_1'] !== null ? autolinker.link(feature.properties['location_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? autolinker.link(feature.properties['type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['age_of_sho'] !== null ? autolinker.link(feature.properties['age_of_sho'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prior_sign'] !== null ? autolinker.link(feature.properties['prior_sign'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['mental_hea'] !== null ? autolinker.link(feature.properties['mental_hea'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['weapons_ob'] !== null ? autolinker.link(feature.properties['weapons_ob'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['where_obta'] !== null ? autolinker.link(feature.properties['where_obta'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['weapon_typ'] !== null ? autolinker.link(feature.properties['weapon_typ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['weapon_det'] !== null ? autolinker.link(feature.properties['weapon_det'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sources'] !== null ? autolinker.link(feature.properties['sources'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['mental_h_1'] !== null ? autolinker.link(feature.properties['mental_h_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sources_ad'] !== null ? autolinker.link(feature.properties['sources_ad'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['summary'] !== null ? autolinker.link(feature.properties['summary'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_US_Crime_1982_2021_6_0() {
+            return {
+                pane: 'pane_US_Crime_1982_2021_6',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,42,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_US_Crime_1982_2021_6');
+        map.getPane('pane_US_Crime_1982_2021_6').style.zIndex = 406;
+        map.getPane('pane_US_Crime_1982_2021_6').style['mix-blend-mode'] = 'normal';
+        var layer_US_Crime_1982_2021_6 = new L.geoJson(json_US_Crime_1982_2021_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_US_Crime_1982_2021_6',
+            layerName: 'layer_US_Crime_1982_2021_6',
+            pane: 'pane_US_Crime_1982_2021_6',
+            onEachFeature: pop_US_Crime_1982_2021_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_US_Crime_1982_2021_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_US_Crime_1982_2021_6);
+        map.addLayer(layer_US_Crime_1982_2021_6);
+        map.on("zoomend", function(e) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Safe_Zone_1);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Safe_Zone_1);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Crime_Occurence_2);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Crime_Occurence_2);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Extreme_Cases_3);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Extreme_Cases_3);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Very_Extreme_Crime_Cases_4);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Very_Extreme_Crime_Cases_4);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_US_Law_Enforcement_Agenciy_5);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_US_Law_Enforcement_Agenciy_5);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_US_Crime_1982_2021_6);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_US_Crime_1982_2021_6);
+            }
+        });
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Safe_Zone_1);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Safe_Zone_1);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Crime_Occurence_2);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Crime_Occurence_2);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Extreme_Cases_3);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Extreme_Cases_3);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_Very_Extreme_Crime_Cases_4);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_Very_Extreme_Crime_Cases_4);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_US_Law_Enforcement_Agenciy_5);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_US_Law_Enforcement_Agenciy_5);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 5) {
+                map.addLayer(layer_US_Crime_1982_2021_6);
+            } else if (map.getZoom() > 19 || map.getZoom() < 5) {
+                map.removeLayer(layer_US_Crime_1982_2021_6);
+            }
+        map.on("zoomend", function(){
+
+                if (map.hasLayer(layer_Safe_Zone_1)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Safe_Zone_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Safe_Zone_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Crime_Occurence_2)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Crime_Occurence_2.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Crime_Occurence_2.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Extreme_Cases_3)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Extreme_Cases_3.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Extreme_Cases_3.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Very_Extreme_Crime_Cases_4)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Very_Extreme_Crime_Cases_4.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Very_Extreme_Crime_Cases_4.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_US_Law_Enforcement_Agenciy_5)) {
+                    if (map.getZoom() <= 12 && map.getZoom() >= 19) {
+                        layer_US_Law_Enforcement_Agenciy_5.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_US_Law_Enforcement_Agenciy_5.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_US_Crime_1982_2021_6)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_US_Crime_1982_2021_6.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_US_Crime_1982_2021_6.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
+        setBounds();
+        var i = 0;
+        layer_Safe_Zone_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Safe_Zone_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Crime_Occurence_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Crime_Occurence_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Extreme_Cases_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Extreme_Cases_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Very_Extreme_Crime_Cases_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Very_Extreme_Crime_Cases_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_US_Law_Enforcement_Agenciy_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_US_Law_Enforcement_Agenciy_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_US_Crime_1982_2021_6.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['case'] !== null?String('<div style="color: #ff0004; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['case']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_US_Crime_1982_2021_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+                if (map.hasLayer(layer_Safe_Zone_1)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Safe_Zone_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Safe_Zone_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Crime_Occurence_2)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Crime_Occurence_2.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Crime_Occurence_2.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Extreme_Cases_3)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Extreme_Cases_3.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Extreme_Cases_3.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Very_Extreme_Crime_Cases_4)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_Very_Extreme_Crime_Cases_4.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Very_Extreme_Crime_Cases_4.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_US_Law_Enforcement_Agenciy_5)) {
+                    if (map.getZoom() <= 12 && map.getZoom() >= 19) {
+                        layer_US_Law_Enforcement_Agenciy_5.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_US_Law_Enforcement_Agenciy_5.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_US_Crime_1982_2021_6)) {
+                    if (map.getZoom() <= 9 && map.getZoom() >= 19) {
+                        layer_US_Crime_1982_2021_6.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_US_Crime_1982_2021_6.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        resetLabels([layer_Safe_Zone_1,layer_Crime_Occurence_2,layer_Extreme_Cases_3,layer_Very_Extreme_Crime_Cases_4,layer_US_Law_Enforcement_Agenciy_5,layer_US_Crime_1982_2021_6]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Safe_Zone_1,layer_Crime_Occurence_2,layer_Extreme_Cases_3,layer_Very_Extreme_Crime_Cases_4,layer_US_Law_Enforcement_Agenciy_5,layer_US_Crime_1982_2021_6]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Safe_Zone_1,layer_Crime_Occurence_2,layer_Extreme_Cases_3,layer_Very_Extreme_Crime_Cases_4,layer_US_Law_Enforcement_Agenciy_5,layer_US_Crime_1982_2021_6]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Safe_Zone_1,layer_Crime_Occurence_2,layer_Extreme_Cases_3,layer_Very_Extreme_Crime_Cases_4,layer_US_Law_Enforcement_Agenciy_5,layer_US_Crime_1982_2021_6]);
+        });
+        </script>
+    </body>
+</html>
